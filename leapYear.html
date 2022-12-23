@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Kiểm tra năm tháng</h2>
+    <label for="year">Năm</label><br>
+    <input type="number" name="year" min="1900" id="year"><br>
+    <label for="month">Thang</label><br>
+    <input type="number" name="month"min ="1" max="12" id="month"><br>
+    <button type="button" onclick="kiemTraNamThang()">Kiểm tra</button>
+    <div id="ketqua"></div>
+
+    <script>
+        function kiemTraNamThang (){
+            let year = document.getElementById('year').value;
+            let thang = document.getElementById('month').value;
+            if (year != "" && thang != ""){
+                year =parseInt(year);
+                thang = parseInt(thang);
+
+                let leapYear = false;//kiem tra nếu là năm nhuận
+                 if (year % 400 == 0) {
+                    leapYear = true;
+                    
+                } else if ((year % 4 == 0) && (year % 100 != 0)) {
+                    leapYear =true;
+                }else{
+                    leapYear= false;
+                }
+                let chuoi = "";
+                if (leapYear){
+                    chuoi = year + " là năm nhuận ";
+                }else{
+                    chuoi = year + " là năm không nhuận";
+                }
+                let soNgay;
+                switch(thang){
+                    case 1: 
+                    case 3:
+                    case 5:
+                    case 7:
+                    case 8:
+                    case 10:
+                    case 12:
+                        soNgay = 31;
+                        break;
+                    case 4: case 6: case 9: case 11:
+                        soNgay =30;
+                        break;
+                    case 2:
+                        /* leapYear true thì lấy giá 29 , nếu fault thì lấy 28
+                            if (leapYear)==>true{
+                                soNgay =29
+                            }else{
+                                soNgay =28
+                            }
+                        */
+                        soNgay = leapYear ? 29 : 28; break;
+                    default: 
+                        soNgay = 0;
+                        break;
+                }
+                document.getElementById('ketqua').innerHTML = chuoi + " và có " + soNgay + " ngay";
+            }else{
+                alert('nhập đủ tháng năm');
+            }
+        }
+           
+    </script>
+
+</body>
+</html>
